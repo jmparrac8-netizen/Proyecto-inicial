@@ -1,0 +1,13 @@
+#BlueJ class context
+#Sun Aug 23 19:27:30 COT 2026
+comment0.target=Symbol
+comment0.text=\r\n A symbol will call the circle class, to take it for his own, the symbol is just\r\n a circle that changes its color, its position is determined by the wheel\r\n \r\n @author Tomas Arevalo-Jose Parra \r\n @version 1.0\r\n
+comment1.params=color x y
+comment1.target=Symbol(java.lang.String, int, int)
+comment1.text=\r\n Constructor for objects of class Symbol\r\n
+comment2.params=color
+comment2.target=void changeColor(java.lang.String)
+comment2.text=\r\nchangeColor es un metodo que cambia el color del simbolo por uno diferente\r\n \r\n @param color the new color. Valid colors are "red", "yellow", "blue", "green",\r\n "magenta" and "black"\r\n
+comment3.target=java.lang.String getColor()
+comment3.text=\r\nchangeColor es un metodo que cambia el color del simbolo por uno diferente\r\n \r\n @param color the new color. Valid colors are "red", "yellow", "blue", "green",\r\n "magenta" and "black"\r\n @return\r\n
+numComments=4
