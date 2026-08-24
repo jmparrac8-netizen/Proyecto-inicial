@@ -155,7 +155,8 @@ public class Circle{
         color = newColor;
         draw();
     }
-
-
-
+    
+    public boolean getVisible(){
+        return isVisible;  
+    }
 }

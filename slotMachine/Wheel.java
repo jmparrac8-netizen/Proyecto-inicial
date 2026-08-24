@@ -15,7 +15,7 @@ public class Wheel
     
 
     /**
-     * Constructor for objects of class Wheel
+     * Crea una rueda
      */
     public Wheel(int xpos,int ypos)
     {
@@ -23,19 +23,74 @@ public class Wheel
         isVisible =false;
         this.xPosition=xpos;
         this.yPosition=ypos;
-        
-        
     }
 
     /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
+     * Añade un symbolo a la rueda
      */
-    public int sampleMethod(int y)
+    public void addSymbols(String color)
     {
-        // put your code here
-        return x + y;
+        Symbol symbol=new Symbol(color,xPosition,yPosition);
+        symbols.add(symbol);
+    }
+    /**
+     * Elimina el primer symbolo que encuentre con un determinado color
+     */
+    public void delSymbols(String color)
+    {
+        for (int i = 0; i < symbols.size(); i++) {
+            if (symbols.get(i).getColor().equalsIgnoreCase(color)) {
+                symbols.remove(i);
+                return;
+            }
+        }
+    }
+    /**
+     * Ubica en la rueda el simbolo del color indicado
+     */
+    public void placeSymbols(String color)
+    {
+        for (int i = 0; i < symbols.size(); i++) {
+            Symbol symbol=symbols.get(i);
+            symbol.makeInVisibleS();
+            if (symbols.get(i).getColor().equalsIgnoreCase(color)) {
+                symbol=symbols.get(i);
+                symbol.makeVisibleS();
+                return;
+            }
+        }
+    }
+    /**
+     * Hace girar a la rueda
+     */
+    public void spin()
+    {
+        if (symbols.isEmpty()){
+            return;
+        }
+        int newIndex = (int) (Math.random() * symbols.size());
+        String findcolor=symbols.get(newIndex).getColor();
+        placeSymbols(findcolor);
+        }
+    public String[] getSymbols()
+    {
+        String[] colors = new String[symbols.size()];
+        for (int i = 0; i < symbols.size(); i++) {
+            colors[i] = symbols.get(i).getColor();
+        }
+        return colors;
+    }
+    public String getVisibleSymbols()
+    {
+        String color;
+        for (int i = 0; i < symbols.size(); i++)
+        {
+            Symbol symbol=symbols.get(i);
+            boolean visible=symbol.getvisibility();
+            if (visible = true){
+                return color=symbols.get(i).getColor();
+            }
+        }
+        return "None";
     }
 }

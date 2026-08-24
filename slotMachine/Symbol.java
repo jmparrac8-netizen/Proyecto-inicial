@@ -44,4 +44,13 @@ public class Symbol
         return actualColor;
     }
     
+    public void makeVisibleS(){
+        symbol.makeVisible();
+    }
+    public void makeInVisibleS(){
+        symbol.makeInvisible();
+    }
+    public boolean getvisibility(){
+        return symbol.getVisible();
+    }
 }

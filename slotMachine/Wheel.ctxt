@@ -1,10 +1,20 @@
 #BlueJ class context
-#Sun Aug 23 19:44:04 COT 2026
+#Sun Aug 23 21:39:10 COT 2026
 comment0.target=Wheel
 comment1.params=xpos ypos
 comment1.target=Wheel(int, int)
-comment1.text=\r\n Constructor for objects of class Wheel\r\n
-comment2.params=y
-comment2.target=int sampleMethod(int)
-comment2.text=\r\n An example of a method - replace this comment with your own\r\n \r\n @param  y   a sample parameter for a method\r\n @return     the sum of x and y \r\n
-numComments=3
+comment1.text=\r\n Crea una rueda\r\n
+comment2.params=color
+comment2.target=void addSymbols(java.lang.String)
+comment2.text=\r\n A\u00F1ade un symbolo a la rueda\r\n
+comment3.params=color
+comment3.target=void delSymbols(java.lang.String)
+comment3.text=\r\n Elimina el primer symbolo que encuentre con un determinado color\r\n
+comment4.params=color
+comment4.target=void placeSymbols(java.lang.String)
+comment4.text=\r\n Ubica en la rueda el simbolo del color indicado\r\n
+comment5.target=void spin()
+comment5.text=\r\n Hace girar a la rueda\r\n
+comment6.target=java.lang.String[] getSymbols()
+comment7.target=java.lang.String getVisibleSymbols()
+numComments=8
