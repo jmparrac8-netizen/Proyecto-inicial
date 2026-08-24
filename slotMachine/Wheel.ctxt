@@ -1,5 +1,5 @@
 #BlueJ class context
-#Sun Aug 23 21:39:10 COT 2026
+#Sun Aug 23 23:01:26 COT 2026
 comment0.target=Wheel
 comment1.params=xpos ypos
 comment1.target=Wheel(int, int)
@@ -16,5 +16,11 @@ comment4.text=\r\n Ubica en la rueda el simbolo del color indicado\r\n
 comment5.target=void spin()
 comment5.text=\r\n Hace girar a la rueda\r\n
 comment6.target=java.lang.String[] getSymbols()
+comment6.text=\r\n Devuelve los simbolos de la rueda\r\n
 comment7.target=java.lang.String getVisibleSymbols()
-numComments=8
+comment7.text=\r\n Devuelve el simbolo visible\r\n
+comment8.target=int getXPosition()
+comment8.text=\r\n Devuelve la posicion X de la rueda\r\n
+comment9.target=int getYPosition()
+comment9.text=\r\n Devuelve la posicion Y de la rueda\r\n
+numComments=10
