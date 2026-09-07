@@ -1,56 +1,57 @@
-
 /**
- * A symbol will call the circle class, to take it for his own, the symbol is just
- * a circle that changes its color, its position is determined by the wheel
- * 
- * @author Tomas Arevalo-Jose Parra 
+ * Symbol representa un simbolo de la maquina: un circulo de un color
+ * determinado, ubicado en una posicion fija del canvas. Un Symbol
+ * reutiliza la clase Circle del paquete shapes para dibujarse.
+ *
+ * @author Tomas Arevalo - Jose Parra
  * @version 1.0
  */
 public class Symbol
 {
-    private Circle symbol;
-    private String actualColor;
+    private Circle circle;
+    private String color;
+
     /**
-     * Constructor for objects of class Symbol
+     * Crea un simbolo del color dado, ubicado en la posicion (x, y)
+     * del canvas.
+     *
+     * @param color color del simbolo (nombre de color CSS)
+     * @param x posicion horizontal en el canvas
+     * @param y posicion vertical en el canvas
      */
-    public Symbol(String color,int x,int y)
+    public Symbol(String color, int x, int y)
     {
-        symbol=new Circle();
-        symbol.changeColor(color);
-        symbol.moveVertical(y);
-        symbol.moveHorizontal(x);
+        this.color = color;
+        circle = new Circle();
+        circle.changeColor(color);
+        // Circle nace en la posicion (20, 15): se mueve a (x, y).
+        circle.moveHorizontal(x - 20);
+        circle.moveVertical(y - 15);
     }
 
     /**
-     *changeColor es un metodo que cambia el color del simbolo por uno diferente
-     * 
-     * @param color the new color. Valid colors are "red", "yellow", "blue", "green",
-     * "magenta" and "black"
-     */
-    public void changeColor(String color)
-    {
-        this.actualColor=color;
-        symbol.changeColor(color);
-    }
-    /**
-     *changeColor es un metodo que cambia el color del simbolo por uno diferente
-     * 
-     * @param color the new color. Valid colors are "red", "yellow", "blue", "green",
-     * "magenta" and "black"
-     * @return
+     * Devuelve el color del simbolo.
+     *
+     * @return el color del simbolo
      */
     public String getColor()
     {
-        return actualColor;
+        return color;
     }
-    
-    public void makeVisibleS(){
-        symbol.makeVisible();
+
+    /**
+     * Muestra el simbolo en el canvas.
+     */
+    public void show()
+    {
+        circle.makeVisible();
     }
-    public void makeInVisibleS(){
-        symbol.makeInvisible();
-    }
-    public boolean getvisibility(){
-        return symbol.getVisible();
+
+    /**
+     * Oculta el simbolo del canvas.
+     */
+    public void hide()
+    {
+        circle.makeInvisible();
     }
 }

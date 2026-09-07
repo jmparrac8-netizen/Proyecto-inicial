@@ -1,30 +1,29 @@
 #BlueJ class context
-<<<<<<< HEAD
-#Sun Aug 23 23:01:26 COT 2026
-=======
-#Sun Aug 23 22:53:18 COT 2026
->>>>>>> ce2b9c020b6d3c957ad03b5824146d66ecef1117
+#Sun Sep 06 22:52:15 COT 2026
 comment0.target=Wheel
-comment1.params=xpos ypos
+comment0.text=\r\n Wheel representa una rueda de la maquina tragamonedas. Una rueda\r\n puede tener varios simbolos, pero solo muestra uno a la vez.\r\n\r\n @author Tomas Arevalo - Jose Parra\r\n @version 1.0\r\n
+comment1.params=xPos yPos
 comment1.target=Wheel(int, int)
-comment1.text=\r\n Crea una rueda\r\n
+comment1.text=\r\n Crea una rueda vacia, ubicada en la posicion (xPos, yPos) del canvas.\r\n
+comment10.target=void hideCurrent()
+comment10.text=\r\n Oculta el simbolo que esta actualmente visible, si existe.\r\n
 comment2.params=color
-comment2.target=void addSymbols(java.lang.String)
-comment2.text=\r\n A\u00F1ade un symbolo a la rueda\r\n
+comment2.target=void addSymbol(java.lang.String)
+comment2.text=\r\n Adiciona un simbolo del color dado a la rueda. Si es el primer\r\n simbolo de la rueda, queda ubicado (visible) automaticamente.\r\n\r\n @param color color del nuevo simbolo\r\n
 comment3.params=color
-comment3.target=void delSymbols(java.lang.String)
-comment3.text=\r\n Elimina el primer symbolo que encuentre con un determinado color\r\n
+comment3.target=void delSymbol(java.lang.String)
+comment3.text=\r\n Elimina el primer simbolo que tenga el color indicado.\r\n\r\n @param color color del simbolo a eliminar\r\n
 comment4.params=color
-comment4.target=void placeSymbols(java.lang.String)
-comment4.text=\r\n Ubica en la rueda el simbolo del color indicado\r\n
+comment4.target=void placeSymbol(java.lang.String)
+comment4.text=\r\n Ubica en la rueda el simbolo del color indicado, ocultando el\r\n que estaba visible anteriormente.\r\n\r\n @param color color del simbolo a ubicar\r\n
 comment5.target=void spin()
-comment5.text=\r\n Hace girar a la rueda\r\n
+comment5.text=\r\n Hace girar la rueda, ubicando al azar uno de sus simbolos.\r\n
 comment6.target=java.lang.String[] getSymbols()
-comment6.text=\r\n Devuelve los simbolos de la rueda\r\n
-comment7.target=java.lang.String getVisibleSymbols()
-comment7.text=\r\n Devuelve el simbolo visible\r\n
-comment8.target=int getXPosition()
-comment8.text=\r\n Devuelve la posicion X de la rueda\r\n
-comment9.target=int getYPosition()
-comment9.text=\r\n Devuelve la posicion Y de la rueda\r\n
-numComments=10
+comment6.text=\r\n Devuelve los colores de los simbolos de la rueda, en el orden\r\n en que fueron adicionados.\r\n\r\n @return arreglo con los colores de los simbolos\r\n
+comment7.target=java.lang.String getVisibleSymbol()
+comment7.text=\r\n Devuelve el color del simbolo actualmente ubicado en la rueda.\r\n\r\n @return color visible, o "none" si no hay ninguno ubicado\r\n
+comment8.target=void makeVisible()
+comment8.text=\r\n Hace visible el simbolo actualmente ubicado en la rueda.\r\n
+comment9.target=void makeInvisible()
+comment9.text=\r\n Oculta el simbolo actualmente ubicado en la rueda.\r\n
+numComments=11

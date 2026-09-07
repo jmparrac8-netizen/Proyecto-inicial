@@ -1,16 +1,14 @@
 #BlueJ class context
-#Sun Aug 23 23:01:26 COT 2026
+#Sun Sep 06 22:52:15 COT 2026
 comment0.target=Symbol
-comment0.text=\r\n A symbol will call the circle class, to take it for his own, the symbol is just\r\n a circle that changes its color, its position is determined by the wheel\r\n \r\n @author Tomas Arevalo-Jose Parra \r\n @version 1.0\r\n
+comment0.text=\r\n Symbol representa un simbolo de la maquina\: un circulo de un color\r\n determinado, ubicado en una posicion fija del canvas. Un Symbol\r\n reutiliza la clase Circle del paquete shapes para dibujarse.\r\n\r\n @author Tomas Arevalo - Jose Parra\r\n @version 1.0\r\n
 comment1.params=color x y
 comment1.target=Symbol(java.lang.String, int, int)
-comment1.text=\r\n Constructor for objects of class Symbol\r\n
-comment2.params=color
-comment2.target=void changeColor(java.lang.String)
-comment2.text=\r\nchangeColor es un metodo que cambia el color del simbolo por uno diferente\r\n \r\n @param color the new color. Valid colors are "red", "yellow", "blue", "green",\r\n "magenta" and "black"\r\n
-comment3.target=java.lang.String getColor()
-comment3.text=\r\nchangeColor es un metodo que cambia el color del simbolo por uno diferente\r\n \r\n @param color the new color. Valid colors are "red", "yellow", "blue", "green",\r\n "magenta" and "black"\r\n @return\r\n
-comment4.target=void makeVisibleS()
-comment5.target=void makeInVisibleS()
-comment6.target=boolean getvisibility()
-numComments=7
+comment1.text=\r\n Crea un simbolo del color dado, ubicado en la posicion (x, y)\r\n del canvas.\r\n\r\n @param color color del simbolo (nombre de color CSS)\r\n @param x posicion horizontal en el canvas\r\n @param y posicion vertical en el canvas\r\n
+comment2.target=java.lang.String getColor()
+comment2.text=\r\n Devuelve el color del simbolo.\r\n\r\n @return el color del simbolo\r\n
+comment3.target=void show()
+comment3.text=\r\n Muestra el simbolo en el canvas.\r\n
+comment4.target=void hide()
+comment4.text=\r\n Oculta el simbolo del canvas.\r\n
+numComments=5
