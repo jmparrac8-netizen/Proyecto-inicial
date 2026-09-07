@@ -1,0 +1,21 @@
+#BlueJ class context
+#Sun Sep 06 23:12:47 COT 2026
+comment0.target=SlotMachineC2Test
+comment1.target=void setUp()
+comment10.target=void lockedWheelShouldNotChangeWhenSpun()
+comment11.target=void unlockShouldAllowSpinAgain()
+comment12.target=void spinWithStepsShouldMoveExactNumberOfPositions()
+comment13.target=void spinWithConfigurationShouldSetExactColors()
+comment14.target=void spinWithWrongSizeConfigurationShouldSetOkFalse()
+comment15.target=void spinWithConfigurationShouldNotAffectLockedWheel()
+comment16.target=void isJackpotShouldBeTrueWhenAllWheelsMatch()
+comment17.target=void isJackpotShouldBeFalseWhenWheelsDiffer()
+comment2.target=void addWheelShouldIncreaseConfigurationSize()
+comment3.target=void addWheelWithInvalidPositionShouldNotFail()
+comment4.target=void delWheelShouldDecreaseConfigurationSize()
+comment5.target=void delWheelOnEmptyMachineShouldSetOkFalse()
+comment6.target=void addSymbolShouldAppearInSymbols()
+comment7.target=void delSymbolShouldRemoveColorFromSymbols()
+comment8.target=void placeSymbolShouldChangeVisibleConfiguration()
+comment9.target=void swapShouldExchangeVisibleSymbols()
+numComments=18

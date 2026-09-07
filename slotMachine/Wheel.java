@@ -1,12 +1,8 @@
 import java.util.ArrayList;
 
-/**
- * Wheel representa una rueda de la maquina tragamonedas. Una rueda
- * puede tener varios simbolos, pero solo muestra uno a la vez.
- *
- * @author Tomas Arevalo - Jose Parra
- * @version 1.0
- */
+// Autor: Tomas Arevalo - Jose Parra
+// Una rueda de la maquina tragamonedas.
+// Puede tener varios simbolos, pero solo muestra uno a la vez.
 public class Wheel
 {
     private int xPosition;
@@ -14,10 +10,9 @@ public class Wheel
     private ArrayList<Symbol> symbols;
     private int currentIndex;
     private boolean visible;
+    private boolean locked;
 
-    /**
-     * Crea una rueda vacia, ubicada en la posicion (xPos, yPos) del canvas.
-     */
+    // Crea una rueda vacia en la posicion dada del canvas
     public Wheel(int xPos, int yPos)
     {
         xPosition = xPos;
@@ -25,14 +20,10 @@ public class Wheel
         symbols = new ArrayList<>();
         currentIndex = -1;
         visible = true;
+        locked = false;
     }
 
-    /**
-     * Adiciona un simbolo del color dado a la rueda. Si es el primer
-     * simbolo de la rueda, queda ubicado (visible) automaticamente.
-     *
-     * @param color color del nuevo simbolo
-     */
+    // Adiciona un simbolo. Si es el primero, queda visible de una vez.
     public void addSymbol(String color)
     {
         symbols.add(new Symbol(color, xPosition, yPosition));
@@ -41,11 +32,7 @@ public class Wheel
         }
     }
 
-    /**
-     * Elimina el primer simbolo que tenga el color indicado.
-     *
-     * @param color color del simbolo a eliminar
-     */
+    // Elimina el primer simbolo con el color dado
     public void delSymbol(String color)
     {
         for (int i = 0; i < symbols.size(); i++) {
@@ -60,12 +47,7 @@ public class Wheel
         }
     }
 
-    /**
-     * Ubica en la rueda el simbolo del color indicado, ocultando el
-     * que estaba visible anteriormente.
-     *
-     * @param color color del simbolo a ubicar
-     */
+    // Ubica en la rueda el simbolo del color dado
     public void placeSymbol(String color)
     {
         for (int i = 0; i < symbols.size(); i++) {
@@ -80,24 +62,51 @@ public class Wheel
         }
     }
 
-    /**
-     * Hace girar la rueda, ubicando al azar uno de sus simbolos.
-     */
+    // Gira la rueda al azar. No hace nada si esta fijada.
     public void spin()
     {
-        if (symbols.isEmpty()) {
+        if (locked || symbols.isEmpty()) {
             return;
         }
         int randomIndex = (int) (Math.random() * symbols.size());
         placeSymbol(symbols.get(randomIndex).getColor());
     }
 
-    /**
-     * Devuelve los colores de los simbolos de la rueda, en el orden
-     * en que fueron adicionados.
-     *
-     * @return arreglo con los colores de los simbolos
-     */
+    // Rota la rueda un numero de pasos. No hace nada si esta fijada.
+    public void spin(int steps)
+    {
+        if (locked || symbols.isEmpty()) {
+            return;
+        }
+        int start = (currentIndex == -1) ? 0 : currentIndex;
+        for (int step = 1; step <= steps; step++) {
+            int nextIndex = (start + step) % symbols.size();
+            placeSymbol(symbols.get(nextIndex).getColor());
+            if (visible) {
+                Canvas.getCanvas().wait(300);
+            }
+        }
+    }
+
+    // Fija la rueda
+    public void lock()
+    {
+        locked = true;
+    }
+
+    // Suelta la rueda
+    public void unlock()
+    {
+        locked = false;
+    }
+
+    // Indica si la rueda esta fijada
+    public boolean isLocked()
+    {
+        return locked;
+    }
+
+    // Devuelve los colores de los simbolos de la rueda
     public String[] getSymbols()
     {
         String[] colors = new String[symbols.size()];
@@ -107,11 +116,7 @@ public class Wheel
         return colors;
     }
 
-    /**
-     * Devuelve el color del simbolo actualmente ubicado en la rueda.
-     *
-     * @return color visible, o "none" si no hay ninguno ubicado
-     */
+    // Devuelve el color del simbolo actualmente ubicado
     public String getVisibleSymbol()
     {
         if (currentIndex == -1) {
@@ -120,9 +125,7 @@ public class Wheel
         return symbols.get(currentIndex).getColor();
     }
 
-    /**
-     * Hace visible el simbolo actualmente ubicado en la rueda.
-     */
+    // Hace visible el simbolo actual
     public void makeVisible()
     {
         visible = true;
@@ -131,18 +134,14 @@ public class Wheel
         }
     }
 
-    /**
-     * Oculta el simbolo actualmente ubicado en la rueda.
-     */
+    // Oculta el simbolo actual
     public void makeInvisible()
     {
         visible = false;
         hideCurrent();
     }
 
-    /**
-     * Oculta el simbolo que esta actualmente visible, si existe.
-     */
+    // Oculta el simbolo visible, si hay alguno
     private void hideCurrent()
     {
         if (currentIndex != -1) {

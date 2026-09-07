@@ -1,0 +1,7 @@
+#BlueJ class context
+#Sun Sep 06 23:12:47 COT 2026
+comment0.target=SlotMachineCC2Test
+comment1.target=void setUp()
+comment2.target=void accordingArPaShouldKeepLockedWheelUnchanged()
+comment3.target=void accordingArPaShouldNotBreakOnInvalidSwap()
+numComments=4

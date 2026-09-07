@@ -1,50 +1,78 @@
 import java.util.ArrayList;
 
-/**
- * SlotMachine simula una maquina tragamonedas.
- * La maquina tiene varias ruedas y cada rueda muestra un simbolo
- * (un circulo de un color) a la vez.
- *
- * Las posiciones se enumeran a partir de 1. Si una posicion dada es
- * menor a 1 se usa la posicion 1, y si es mayor al maximo posible se
- * usa el maximo.
- *
- * @author Tomas Arevalo - Jose Parra
- * @version 1.0
- */
+// Autor: Tomas Arevalo - Jose Parra
+// Simula una maquina tragamonedas con varias ruedas.
+// Cada rueda muestra un simbolo (un circulo de un color) a la vez.
+// Las posiciones empiezan en 1. Si una posicion es invalida, se ajusta
+// al valor mas cercano permitido.
 public class SlotMachine
 {
     private ArrayList<Wheel> wheels;
+    private boolean visible;
     private boolean ok;
 
-    /**
-     * Crea una maquina tragamonedas sin ruedas.
-     */
+    // Crea una maquina sin ruedas
     public SlotMachine()
     {
         wheels = new ArrayList<>();
+        visible = true;
         ok = true;
     }
 
-    /**
-     * Adiciona una rueda vacia en la posicion indicada.
-     *
-     * @param pos posicion donde queda la nueva rueda (empieza en 1)
-     */
+    // Adiciona una rueda vacia en la posicion indicada
     public void addWheel(int pos)
     {
         int index = fixPos(pos, wheels.size() + 1) - 1;
         int xPos = 60 + index * 100;
         int yPos = 100;
-        wheels.add(index, new Wheel(xPos, yPos));
+        Wheel wheel = new Wheel(xPos, yPos);
+        if (!visible) {
+            wheel.makeInvisible();
+        }
+        wheels.add(index, wheel);
         ok = true;
     }
 
-    /**
-     * Elimina la rueda que se encuentra en la posicion indicada.
-     *
-     * @param pos posicion de la rueda a eliminar (empieza en 1)
-     */
+    // Intercambia la posicion de dos ruedas
+    public void swap(int wheel1, int wheel2)
+    {
+        if (wheels.isEmpty()) {
+            ok = false;
+            return;
+        }
+        int i1 = fixPos(wheel1, wheels.size()) - 1;
+        int i2 = fixPos(wheel2, wheels.size()) - 1;
+        Wheel temp = wheels.get(i1);
+        wheels.set(i1, wheels.get(i2));
+        wheels.set(i2, temp);
+        ok = true;
+    }
+
+    // Fija una rueda: deja de responder a los distintos spin
+    public void lock(int wheel)
+    {
+        if (wheels.isEmpty()) {
+            ok = false;
+            return;
+        }
+        int index = fixPos(wheel, wheels.size()) - 1;
+        wheels.get(index).lock();
+        ok = true;
+    }
+
+    // Suelta una rueda previamente fijada
+    public void unlock(int wheel)
+    {
+        if (wheels.isEmpty()) {
+            ok = false;
+            return;
+        }
+        int index = fixPos(wheel, wheels.size()) - 1;
+        wheels.get(index).unlock();
+        ok = true;
+    }
+
+    // Elimina la rueda en la posicion indicada
     public void delWheel(int pos)
     {
         if (wheels.isEmpty()) {
@@ -57,12 +85,7 @@ public class SlotMachine
         ok = true;
     }
 
-    /**
-     * Adiciona un simbolo del color indicado a la rueda dada.
-     *
-     * @param pos posicion de la rueda (empieza en 1)
-     * @param color color del nuevo simbolo (nombre de color CSS)
-     */
+    // Adiciona un simbolo del color dado a una rueda
     public void addSymbol(int pos, String color)
     {
         if (wheels.isEmpty()) {
@@ -74,11 +97,7 @@ public class SlotMachine
         ok = true;
     }
 
-    /**
-     * Elimina el simbolo del color indicado de todas las ruedas.
-     *
-     * @param color color del simbolo a eliminar
-     */
+    // Elimina un simbolo del color dado de todas las ruedas
     public void delSymbol(String color)
     {
         for (Wheel wheel : wheels) {
@@ -87,12 +106,7 @@ public class SlotMachine
         ok = true;
     }
 
-    /**
-     * Ubica en la rueda indicada el simbolo del color dado.
-     *
-     * @param wheel posicion de la rueda (empieza en 1)
-     * @param color color del simbolo a ubicar
-     */
+    // Ubica en una rueda el simbolo del color dado
     public void placeSymbol(int wheel, String color)
     {
         if (wheels.isEmpty()) {
@@ -104,11 +118,7 @@ public class SlotMachine
         ok = true;
     }
 
-    /**
-     * Hace girar al azar la rueda indicada.
-     *
-     * @param wheel posicion de la rueda (empieza en 1)
-     */
+    // Hace girar al azar una rueda
     public void spin(int wheel)
     {
         if (wheels.isEmpty()) {
@@ -120,9 +130,7 @@ public class SlotMachine
         ok = true;
     }
 
-    /**
-     * Hace girar al azar todas las ruedas de la maquina.
-     */
+    // Hace girar al azar todas las ruedas
     public void spin()
     {
         for (Wheel wheel : wheels) {
@@ -131,12 +139,34 @@ public class SlotMachine
         ok = true;
     }
 
-    /**
-     * Consulta los colores de los simbolos de la primera rueda, en el
-     * orden en que fueron adicionados (empezando por el 1).
-     *
-     * @return arreglo con los colores de los simbolos
-     */
+    // Rota una rueda un numero de pasos. No afecta una rueda fijada.
+    public void spin(int wheel, int steps)
+    {
+        if (wheels.isEmpty()) {
+            ok = false;
+            return;
+        }
+        int index = fixPos(wheel, wheels.size()) - 1;
+        wheels.get(index).spin(steps);
+        ok = true;
+    }
+
+    // Deja la maquina en la configuracion dada. No afecta ruedas fijadas.
+    public void spin(String[] configuration)
+    {
+        if (configuration.length != wheels.size()) {
+            ok = false;
+            return;
+        }
+        for (int i = 0; i < wheels.size(); i++) {
+            if (!wheels.get(i).isLocked()) {
+                wheels.get(i).placeSymbol(configuration[i]);
+            }
+        }
+        ok = true;
+    }
+
+    // Devuelve los colores de los simbolos de la primera rueda
     public String[] symbols()
     {
         if (wheels.isEmpty()) {
@@ -145,11 +175,7 @@ public class SlotMachine
         return wheels.get(0).getSymbols();
     }
 
-    /**
-     * Consulta cuantos simbolos de color diferente tiene la primera rueda.
-     *
-     * @return cantidad de colores distintos
-     */
+    // Cuenta cuantos colores distintos hay en la primera rueda
     public int distinctSymbols()
     {
         String[] colors = symbols();
@@ -168,12 +194,7 @@ public class SlotMachine
         return count;
     }
 
-    /**
-     * Consulta la configuracion actual de la maquina: el color visible
-     * de cada rueda, de izquierda a derecha.
-     *
-     * @return arreglo con el color visible de cada rueda
-     */
+    // Devuelve el color visible de cada rueda, de izquierda a derecha
     public String[] configuration()
     {
         String[] colors = new String[wheels.size()];
@@ -183,12 +204,7 @@ public class SlotMachine
         return colors;
     }
 
-    /**
-     * Consulta si la configuracion actual es ganadora, es decir, si
-     * todas las ruedas muestran el mismo color.
-     *
-     * @return true si la maquina esta en una configuracion ganadora
-     */
+    // Indica si todas las ruedas muestran el mismo color
     public boolean isJackpot()
     {
         if (wheels.isEmpty()) {
@@ -203,51 +219,37 @@ public class SlotMachine
         return true;
     }
 
-    /**
-     * Hace visible la maquina y todas sus ruedas.
-     */
+    // Hace visible la maquina y todas sus ruedas
     public void makeVisible()
     {
+        visible = true;
         for (Wheel wheel : wheels) {
             wheel.makeVisible();
         }
     }
 
-    /**
-     * Hace invisible la maquina y todas sus ruedas.
-     */
+    // Hace invisible la maquina y todas sus ruedas
     public void makeInvisible()
     {
+        visible = false;
         for (Wheel wheel : wheels) {
             wheel.makeInvisible();
         }
     }
 
-    /**
-     * Termina el simulador, ocultando la maquina.
-     */
+    // Termina el simulador
     public void exit()
     {
         makeInvisible();
     }
 
-    /**
-     * Consulta si la ultima operacion realizada fue exitosa.
-     *
-     * @return true si la ultima operacion fue correcta
-     */
+    // Indica si la ultima operacion fue exitosa
     public boolean ok()
     {
         return ok;
     }
 
-    /**
-     * Ajusta una posicion al rango valido [1, max].
-     *
-     * @param pos posicion solicitada
-     * @param max posicion maxima valida
-     * @return la posicion ajustada
-     */
+    // Ajusta una posicion al rango valido [1, max]
     private int fixPos(int pos, int max)
     {
         if (pos < 1) {

@@ -1,14 +1,9 @@
 #BlueJ class context
-#Sun Sep 06 22:52:15 COT 2026
+#Sun Sep 06 23:12:47 COT 2026
 comment0.target=Symbol
-comment0.text=\r\n Symbol representa un simbolo de la maquina\: un circulo de un color\r\n determinado, ubicado en una posicion fija del canvas. Un Symbol\r\n reutiliza la clase Circle del paquete shapes para dibujarse.\r\n\r\n @author Tomas Arevalo - Jose Parra\r\n @version 1.0\r\n
 comment1.params=color x y
 comment1.target=Symbol(java.lang.String, int, int)
-comment1.text=\r\n Crea un simbolo del color dado, ubicado en la posicion (x, y)\r\n del canvas.\r\n\r\n @param color color del simbolo (nombre de color CSS)\r\n @param x posicion horizontal en el canvas\r\n @param y posicion vertical en el canvas\r\n
 comment2.target=java.lang.String getColor()
-comment2.text=\r\n Devuelve el color del simbolo.\r\n\r\n @return el color del simbolo\r\n
 comment3.target=void show()
-comment3.text=\r\n Muestra el simbolo en el canvas.\r\n
 comment4.target=void hide()
-comment4.text=\r\n Oculta el simbolo del canvas.\r\n
 numComments=5
