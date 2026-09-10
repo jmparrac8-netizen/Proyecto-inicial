@@ -2,15 +2,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
 
-// Clase de creacion colectiva (via wiki del curso).
-// Cada pareja agrega minimo dos pruebas, con nombres que las identifiquen.
-//
-// Nombre pedido: accordingXxYyShould...
-// XxYy son las iniciales de los primeros apellidos de cada autor,
-// en orden alfabetico. Ejemplo con "Arevalo" y "Parra": accordingArPaShould...
-// (cambien ArPa por sus propias iniciales)
-//
-// No borrar el trabajo de otras parejas, solo agregar el propio al final.
+
+
 public class SlotMachineCC2Test
 {
     private SlotMachine machine;
@@ -22,7 +15,7 @@ public class SlotMachineCC2Test
         machine.makeInvisible();
     }
 
-    // ---- Ejemplo: Arevalo - Parra (cambiar ArPa por sus iniciales) ----
+    
 
     // deberia dejar sin cambios una rueda fijada al pedir una configuracion
     @Test
@@ -55,5 +48,5 @@ public class SlotMachineCC2Test
         assertEquals("red", machine.configuration()[0]);
     }
 
-    // ---- Agreguen aqui abajo las pruebas de las demas parejas ----
+    
 }
