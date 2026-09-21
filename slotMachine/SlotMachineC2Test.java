@@ -193,7 +193,7 @@ public class SlotMachineC2Test
         assertTrue(machine.isJackpot());
     }
 
-    // isJackpot no deberia ser true si las ruedas difieren
+    // isJackpot no deberia ser true si las ruedas son distintas
     @Test
     public void isJackpotShouldBeFalseWhenWheelsDiffer()
     {
@@ -201,6 +201,113 @@ public class SlotMachineC2Test
         machine.addWheel(2);
         machine.addSymbol(1, "red");
         machine.addSymbol(2, "blue");
+        assertFalse(machine.isJackpot());
+    }
+
+    // isJackpot no deberia ser true si una rueda esta vacia
+    @Test
+    public void isJackpotShouldBeFalseWhenAWheelIsEmpty()
+    {
+        machine.addWheel(1);
+        assertFalse(machine.isJackpot());
+    }
+
+    // placeSymbol con un color que la rueda no tiene no deberia cambiar nada
+    @Test
+    public void placeSymbolWithMissingColorShouldSetOkFalse()
+    {
+        machine.addWheel(1);
+        machine.addSymbol(1, "red");
+        machine.placeSymbol(1, "purple");
+        assertFalse(machine.ok());
+        assertEquals("red", machine.configuration()[0]);
+    }
+
+    // spin sobre una rueda fija no deberia ser exitoso
+    @Test
+    public void spinOnLockedWheelShouldSetOkFalse()
+    {
+        machine.addWheel(1);
+        machine.addSymbol(1, "red");
+        machine.lock(1);
+        machine.spin(1);
+        assertFalse(machine.ok());
+    }
+
+    // spin sobre una rueda sin simbolos no deberia ser exitoso
+    @Test
+    public void spinOnEmptyWheelShouldSetOkFalse()
+    {
+        machine.addWheel(1);
+        machine.spin(1);
+        assertFalse(machine.ok());
+    }
+
+    // delSymbol de un color que no existe en ninguna rueda no deberia ser exitoso
+    @Test
+    public void delSymbolWithMissingColorShouldSetOkFalse()
+    {
+        machine.addWheel(1);
+        machine.addSymbol(1, "red");
+        machine.delSymbol("purple");
+        assertFalse(machine.ok());
+    }
+
+    // addSymbol con un color que el canvas no pinta no deberia agregarse
+    @Test
+    public void addSymbolWithUnsupportedColorShouldSetOkFalse()
+    {
+        machine.addWheel(1);
+        machine.addSymbol(1, "purple");
+        assertFalse(machine.ok());
+        assertEquals(0, machine.symbols().length);
+    }
+
+    // addSymbol con un color repetido en la misma rueda no deberia agregarse
+    @Test
+    public void addSymbolWithRepeatedColorShouldSetOkFalse()
+    {
+        machine.addWheel(1);
+        machine.addSymbol(1, "red");
+        machine.addSymbol(1, "red");
+        assertFalse(machine.ok());
+        assertEquals(1, machine.symbols().length);
+    }
+
+    // spin con una configuracion que pide un color inexistente no deberia aplicarse
+    @Test
+    public void spinWithUnavailableColorShouldNotChangeAnything()
+    {
+        machine.addWheel(1);
+        machine.addWheel(2);
+        machine.addSymbol(1, "red");
+        machine.addSymbol(2, "blue");
+        machine.spin(new String[] {"green", "blue"});
+        assertFalse(machine.ok());
+        assertEquals("red", machine.configuration()[0]);
+        assertEquals("blue", machine.configuration()[1]);
+    }
+
+    // delSymbol de un color anterior al actual no deberia cambiar el visible
+    @Test
+    public void delSymbolBeforeCurrentShouldKeepVisibleSymbol()
+    {
+        machine.addWheel(1);
+        machine.addSymbol(1, "red");
+        machine.addSymbol(1, "blue");
+        machine.placeSymbol(1, "blue");
+        machine.delSymbol("red");
+        assertEquals("blue", machine.configuration()[0]);
+    }
+
+    // delSymbol del simbolo actual deberia dejar la rueda sin nada visible
+    @Test
+    public void delSymbolOfCurrentShouldLeaveWheelEmpty()
+    {
+        machine.addWheel(1);
+        machine.addSymbol(1, "red");
+        machine.delSymbol("red");
+        assertEquals("none", machine.configuration()[0]);
         assertFalse(machine.isJackpot());
     }
 }

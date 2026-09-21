@@ -1,0 +1,13 @@
+#BlueJ class context
+#Sun Sep 20 21:44:19 COT 2026
+comment0.target=SlotMachineContestTest
+comment1.target=void newMachineShouldHaveEqualWheelsAndSymbols()
+comment2.target=void newMachineWithInvalidSizeShouldSetOkFalse()
+comment3.target=void searchShouldReachJackpot()
+comment4.target=void searchActionsShouldReplayFromTheStart()
+comment5.target=void solveShouldReturnOneValidMovePerWheel()
+comment6.target=void solveWithInvalidSizeShouldReturnNoActions()
+comment7.target=void solveShouldAlwaysNeedAtLeastOneMove()
+comment8.target=void distinctSymbolsShouldCountVisibleSymbols()
+comment9.target=void spinWithNegativeStepsShouldRotateBackwards()
+numComments=10

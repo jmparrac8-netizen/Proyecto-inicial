@@ -3,7 +3,6 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 
 
-
 public class SlotMachineCC2Test
 {
     private SlotMachine machine;
@@ -15,7 +14,7 @@ public class SlotMachineCC2Test
         machine.makeInvisible();
     }
 
-    
+    // Arevalo - Parra
 
     // deberia dejar sin cambios una rueda fijada al pedir una configuracion
     @Test

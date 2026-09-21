@@ -1,5 +1,5 @@
 #BlueJ class context
-#Sun Sep 06 23:12:47 COT 2026
+#Sun Sep 20 21:44:19 COT 2026
 comment0.target=SlotMachineC2Test
 comment1.target=void setUp()
 comment10.target=void lockedWheelShouldNotChangeWhenSpun()
@@ -10,7 +10,17 @@ comment14.target=void spinWithWrongSizeConfigurationShouldSetOkFalse()
 comment15.target=void spinWithConfigurationShouldNotAffectLockedWheel()
 comment16.target=void isJackpotShouldBeTrueWhenAllWheelsMatch()
 comment17.target=void isJackpotShouldBeFalseWhenWheelsDiffer()
+comment18.target=void isJackpotShouldBeFalseWhenAWheelIsEmpty()
+comment19.target=void placeSymbolWithMissingColorShouldSetOkFalse()
 comment2.target=void addWheelShouldIncreaseConfigurationSize()
+comment20.target=void spinOnLockedWheelShouldSetOkFalse()
+comment21.target=void spinOnEmptyWheelShouldSetOkFalse()
+comment22.target=void delSymbolWithMissingColorShouldSetOkFalse()
+comment23.target=void addSymbolWithUnsupportedColorShouldSetOkFalse()
+comment24.target=void addSymbolWithRepeatedColorShouldSetOkFalse()
+comment25.target=void spinWithUnavailableColorShouldNotChangeAnything()
+comment26.target=void delSymbolBeforeCurrentShouldKeepVisibleSymbol()
+comment27.target=void delSymbolOfCurrentShouldLeaveWheelEmpty()
 comment3.target=void addWheelWithInvalidPositionShouldNotFail()
 comment4.target=void delWheelShouldDecreaseConfigurationSize()
 comment5.target=void delWheelOnEmptyMachineShouldSetOkFalse()
@@ -18,4 +28,4 @@ comment6.target=void addSymbolShouldAppearInSymbols()
 comment7.target=void delSymbolShouldRemoveColorFromSymbols()
 comment8.target=void placeSymbolShouldChangeVisibleConfiguration()
 comment9.target=void swapShouldExchangeVisibleSymbols()
-numComments=18
+numComments=28
