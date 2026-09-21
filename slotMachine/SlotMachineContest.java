@@ -2,8 +2,7 @@ import java.util.ArrayList;
 
 // Autor: Tomas Arevalo - Jose Parra
 // Resuelve el problema de la maraton usando la maquina como testing tool.
-// Lo unico que puede consultar es cuantos simbolos distintos se ven;
-// nunca lee un color directamente.
+
 public class SlotMachineContest
 {
     // Devuelve las acciones {rueda, pasos} que dejan la maquina en premio
