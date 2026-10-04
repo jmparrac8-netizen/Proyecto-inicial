@@ -6,7 +6,7 @@ public class Symbol
     
     private static final String[] COLORS = {"red", "blue", "green", "yellow", "magenta", "black"};
 
-    private Circle circle;
+    protected Circle circle;
     private String color;
     private int xPosition;
     private int yPosition;

@@ -1,5 +1,5 @@
 #BlueJ class context
-#Sun Sep 20 21:44:19 COT 2026
+#Sun Oct 04 11:18:14 COT 2026
 comment0.target=Wheel
 comment1.params=x y
 comment1.target=Wheel(int, int)
@@ -19,6 +19,15 @@ comment2.params=x y
 comment2.target=void moveTo(int, int)
 comment20.params=color
 comment20.target=int indexOf(java.lang.String)
+comment21.target=boolean canLock()
+comment22.target=boolean canSwap()
+comment23.target=boolean canRemove()
+comment24.params=left
+comment24.target=void setLeftNeighbor(Wheel)
+comment25.params=type color
+comment25.target=boolean addSymbol(java.lang.String, java.lang.String)
+comment26.params=type color
+comment26.target=Symbol createSymbol(java.lang.String, java.lang.String)
 comment3.params=color
 comment3.target=boolean addSymbol(java.lang.String)
 comment4.params=color
@@ -31,4 +40,4 @@ comment7.target=boolean spin(int)
 comment8.params=color
 comment8.target=boolean hasSymbol(java.lang.String)
 comment9.target=void lock()
-numComments=21
+numComments=27

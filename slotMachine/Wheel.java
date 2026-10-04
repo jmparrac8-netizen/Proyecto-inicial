@@ -233,4 +233,63 @@ public class Wheel
         }
         return -1;
     }
+
+    // Indica si esta rueda se deja fijar (bloquear). Por defecto si.
+    public boolean canLock()
+    {
+        return true;
+    }
+
+    // Indica si esta rueda se deja intercambiar con otra. Por defecto si.
+    public boolean canSwap()
+    {
+        return true;
+    }
+
+    // Indica si esta rueda se deja eliminar. Por defecto si.
+    public boolean canRemove()
+    {
+        return true;
+    }
+
+    // Informa cual es la rueda inmediatamente a su izquierda en la maquina.
+    // La rueda normal ignora este dato; solo le importa a la rueda lefty.
+    public void setLeftNeighbor(Wheel left)
+    {
+    }
+
+    // Adiciona un simbolo del tipo indicado (normal, ephemeral, shy, chameleon)
+    public boolean addSymbol(String type, String color)
+    {
+        if (!Symbol.isValidColor(color) || indexOf(color) != -1) {
+            return false;
+        }
+        Symbol symbol = createSymbol(type, color);
+        if (symbol == null) {
+            return false;
+        }
+        symbols.add(symbol);
+        if (currentIndex == -1) {
+            placeSymbol(color);
+        }
+        return true;
+    }
+
+    // Construye un simbolo del tipo pedido, o null si el tipo no existe
+    private Symbol createSymbol(String type, String color)
+    {
+        if (type.equalsIgnoreCase("normal")) {
+            return new Symbol(color, xPosition, yPosition);
+        }
+        if (type.equalsIgnoreCase("ephemeral")) {
+            return new EphemeralSymbol(color, xPosition, yPosition);
+        }
+        if (type.equalsIgnoreCase("shy")) {
+            return new ShySymbol(color, xPosition, yPosition);
+        }
+        if (type.equalsIgnoreCase("chameleon")) {
+            return new ChameleonSymbol(color, xPosition, yPosition);
+        }
+        return null;
+    }
 }

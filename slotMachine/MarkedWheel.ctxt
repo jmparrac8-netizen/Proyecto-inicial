@@ -1,0 +1,10 @@
+#BlueJ class context
+#Sun Oct 04 11:18:14 COT 2026
+comment0.target=MarkedWheel
+comment1.params=x y markColor
+comment1.target=MarkedWheel(int, int, java.lang.String)
+comment2.params=x y
+comment2.target=void moveTo(int, int)
+comment3.target=void makeVisible()
+comment4.target=void makeInvisible()
+numComments=5
