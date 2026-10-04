@@ -1,0 +1,9 @@
+#BlueJ class context
+#Sun Oct 04 11:18:14 COT 2026
+comment0.target=LeftyWheel
+comment1.params=x y
+comment1.target=LeftyWheel(int, int)
+comment2.params=left
+comment2.target=void setLeftNeighbor(Wheel)
+comment3.target=boolean spin()
+numComments=4

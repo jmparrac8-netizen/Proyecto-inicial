@@ -1,0 +1,6 @@
+#BlueJ class context
+#Sun Oct 04 11:18:14 COT 2026
+comment0.target=SlotMachineContestCTest
+comment1.target=void accordingArPaShouldSolveEverySupportedSize()
+comment2.target=void accordingArPaShouldNotMoveTheSameWheelTwice()
+numComments=3
