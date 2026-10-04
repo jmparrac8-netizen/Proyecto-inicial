@@ -1,7 +1,0 @@
-#BlueJ class context
-#Sun Oct 04 10:29:25 COT 2026
-comment0.target=ShySymbol
-comment1.params=color x y
-comment1.target=ShySymbol(java.lang.String, int, int)
-comment2.target=void show()
-numComments=3
