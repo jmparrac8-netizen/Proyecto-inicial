@@ -1,7 +1,0 @@
-#BlueJ class context
-#Sun Oct 04 11:18:14 COT 2026
-comment0.target=EphemeralSymbol
-comment1.params=color x y
-comment1.target=EphemeralSymbol(java.lang.String, int, int)
-comment2.target=void show()
-numComments=3
