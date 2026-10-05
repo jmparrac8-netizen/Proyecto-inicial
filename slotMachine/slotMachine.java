@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-// Autor: Tomas Arevalo - Jose Parra
+// Arevalo-Parra
 // Simula una maquina tragamonedas con varias ruedas.
 // Cada rueda muestra un simbolo (un circulo de color) a la vez.
 // Las posiciones empiezan en 1. Si una posicion es invalida, se ajusta
@@ -47,11 +47,21 @@ public class SlotMachine
         ok = true;
     }
 
-    // Adiciona una rueda vacia en la posicion indicada
+    // Adiciona una rueda normal vacia en la posicion indicada
     public void addWheel(int pos)
     {
+        addWheel("normal", pos);
+    }
+
+    // Adiciona una rueda vacia del tipo dado en la posicion indicada
+    public void addWheel(String type, int pos)
+    {
+        if (!Wheel.isValidType(type)) {
+            fail("Ese tipo de rueda no existe.");
+            return;
+        }
         int index = fixPos(pos, wheels.size() + 1) - 1;
-        Wheel wheel = new Wheel(START_X, POS_Y);
+        Wheel wheel = Wheel.create(type, START_X, POS_Y);
         wheels.add(index, wheel);
         if (visible) {
             wheel.makeVisible();
@@ -68,6 +78,10 @@ public class SlotMachine
             return;
         }
         int index = fixPos(pos, wheels.size()) - 1;
+        if (!wheels.get(index).canDelete()) {
+            fail("Esa rueda es rebelde y no se deja eliminar.");
+            return;
+        }
         wheels.get(index).makeInvisible();
         wheels.remove(index);
         ok = true;
@@ -83,6 +97,10 @@ public class SlotMachine
         }
         int i1 = fixPos(wheel1, wheels.size()) - 1;
         int i2 = fixPos(wheel2, wheels.size()) - 1;
+        if (i1 != i2 && (!wheels.get(i1).canSwap() || !wheels.get(i2).canSwap())) {
+            fail("Una rueda rebelde no se deja intercambiar.");
+            return;
+        }
         Wheel temp = wheels.get(i1);
         wheels.set(i1, wheels.get(i2));
         wheels.set(i2, temp);
@@ -90,15 +108,21 @@ public class SlotMachine
         refresh();
     }
 
-    // Fija una rueda: deja de responder a los giros
-    public void lock(int wheel)
+    // Fija una rueda y devuelve su posicion, o 0 si no se pudo
+    public int lock(int wheel)
     {
         if (wheels.isEmpty()) {
             fail("No hay ruedas para fijar.");
-            return;
+            return 0;
         }
-        wheels.get(fixPos(wheel, wheels.size()) - 1).lock();
+        int index = fixPos(wheel, wheels.size()) - 1;
+        if (!wheels.get(index).canLock()) {
+            fail("Esa rueda es rebelde y no se deja fijar.");
+            return 0;
+        }
+        wheels.get(index).lock();
         ok = true;
+        return index + 1;
     }
 
     // Suelta una rueda previamente fijada
@@ -112,16 +136,22 @@ public class SlotMachine
         ok = true;
     }
 
-    // Adiciona un simbolo del color dado a una rueda
+    // Adiciona un simbolo normal del color dado a una rueda
     public void addSymbol(int pos, String color)
+    {
+        addSymbol("normal", pos, color);
+    }
+
+    // Adiciona un simbolo del tipo y color dados a una rueda
+    public void addSymbol(String type, int pos, String color)
     {
         if (wheels.isEmpty()) {
             fail("No hay ruedas para agregar el simbolo.");
             return;
         }
         int index = fixPos(pos, wheels.size()) - 1;
-        if (!wheels.get(index).addSymbol(color)) {
-            fail("Ese color no se puede usar o esa rueda ya lo tiene.");
+        if (!wheels.get(index).addSymbol(type, color)) {
+            fail("Ese tipo o color no se puede usar o esa rueda ya lo tiene.");
             return;
         }
         ok = true;
@@ -169,7 +199,7 @@ public class SlotMachine
             return;
         }
         int index = fixPos(wheel, wheels.size()) - 1;
-        if (!wheels.get(index).spin()) {
+        if (!wheels.get(index).spin(leftOf(index), rightOf(index))) {
             fail("Esa rueda esta fija o no tiene simbolos.");
             return;
         }
@@ -185,7 +215,7 @@ public class SlotMachine
             return;
         }
         int index = fixPos(wheel, wheels.size()) - 1;
-        if (!wheels.get(index).spin(steps)) {
+        if (!wheels.get(index).spin(steps, leftOf(index), rightOf(index))) {
             fail("Esa rueda esta fija o no tiene simbolos.");
             return;
         }
@@ -200,8 +230,8 @@ public class SlotMachine
             fail("No hay ruedas en la maquina.");
             return;
         }
-        for (Wheel wheel : wheels) {
-            wheel.spin();
+        for (int i = 0; i < wheels.size(); i++) {
+            wheels.get(i).spin(leftOf(i), rightOf(i));
         }
         ok = true;
         refresh();
@@ -315,6 +345,24 @@ public class SlotMachine
     public boolean ok()
     {
         return ok;
+    }
+
+    // Devuelve la rueda de esa posicion. Sin modificador para poder revisarla desde las pruebas.
+    Wheel wheelAt(int pos)
+    {
+        return wheels.get(fixPos(pos, wheels.size()) - 1);
+    }
+
+    // Devuelve la rueda a la izquierda del indice, o null si no hay
+    private Wheel leftOf(int index)
+    {
+        return (index > 0) ? wheels.get(index - 1) : null;
+    }
+
+    // Devuelve la rueda a la derecha del indice, o null si no hay
+    private Wheel rightOf(int index)
+    {
+        return (index < wheels.size() - 1) ? wheels.get(index + 1) : null;
     }
 
     // Revisa si la maquina quedo en estado ganador

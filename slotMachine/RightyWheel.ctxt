@@ -1,0 +1,9 @@
+#BlueJ class context
+#Sun Oct 04 22:34:31 COT 2026
+comment0.target=RightyWheel
+comment1.params=x y
+comment1.target=RightyWheel(int, int)
+comment2.target=java.lang.String type()
+comment3.params=left right
+comment3.target=void turned(Wheel, Wheel)
+numComments=4

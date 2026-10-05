@@ -1,0 +1,10 @@
+#BlueJ class context
+#Sun Oct 04 22:34:31 COT 2026
+comment0.target=RebelWheel
+comment1.params=x y
+comment1.target=RebelWheel(int, int)
+comment2.target=java.lang.String type()
+comment3.target=boolean canLock()
+comment4.target=boolean canSwap()
+comment5.target=boolean canDelete()
+numComments=6

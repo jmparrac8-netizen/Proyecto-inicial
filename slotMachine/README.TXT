@@ -1,14 +1,21 @@
 PROYECTO: slotMachine
-AUTORES: Tomas Arevalo - Jose Parra
+AUTORES: Arevalo-Parra
 CURSO: Desarrollo Orientado por Objetos (DOPO-POOB) - Proyecto inicial 2026-2
 
 Simulador de una maquina tragamonedas inspirado en el Problem I
-de la maraton 2025 (Slot Machine). Ciclos 1 a 3.
+de la maraton 2025 (Slot Machine). Ciclos 1 a 4.
 
 CLASES PROPIAS
   SlotMachine        : clase principal. Maneja las ruedas y responde ok().
-  Wheel              : una rueda. Guarda varios simbolos y muestra uno a la vez.
-  Symbol             : un simbolo, dibujado como un circulo de color.
+  Wheel              : rueda (abstracta). Guarda varios simbolos y muestra uno a la vez.
+    NormalWheel      : la rueda de siempre.
+    LeftyWheel       : al girar copia a la rueda de su izquierda.
+    RebelWheel       : no se deja fijar, intercambiar ni eliminar.
+    RightyWheel      : tipo nuevo. Al girar copia a la rueda de su derecha.
+  Symbol             : simbolo (abstracto) con un color.
+    NormalSymbol     : circulo.
+    EphemeralSymbol  : triangulo que se achica en cada giro hasta ser un punto.
+    ShySymbol        : cuadrado que alterna visible / invisible al ser seleccionado.
   SlotMachineContest : resuelve el problema de la maraton (solve y simulate).
 
 CLASES REUTILIZADAS DEL PROYECTO shapes (sin modificar)
@@ -36,8 +43,22 @@ CICLO 3
   SlotMachineContest.simulate(n) resuelve y despues muestra la solucion.
   Lo unico que consulta el solver es distinctSymbols(); nunca lee un color.
 
+CICLO 4
+  addWheel(type, pos)           tipos: normal, lefty, rebel, righty.
+  addSymbol(type, pos, color)   tipos: normal, ephemeral, shy.
+  addWheel(pos) y addSymbol(pos, color) siguen creando elementos normales.
+  Un tipo que no existe deja ok() en false.
+  Como se distinguen (usabilidad):
+    ruedas   : barra de color bajo el cuadro. normal negra, lefty azul,
+               rebel roja, righty verde.
+    simbolos : forma. normal circulo, ephemeral triangulo, shy cuadrado.
+  Un shy invisible sigue contando con su color en configuration() e isJackpot().
+  El solver trabaja solo con ruedas y simbolos normales.
+
 PRUEBAS
   SlotMachineC2Test       : pruebas de unidad del ciclo 2 (modo invisible).
   SlotMachineCC2Test      : pruebas compartidas del ciclo 2.
   SlotMachineContestTest  : pruebas de unidad del ciclo 3.
   SlotMachineContestCTest : pruebas compartidas del ciclo 3.
+  SlotMachineC4Test       : pruebas de unidad del ciclo 4 (tipos de ruedas y simbolos).
+  SlotMachineCC4Test      : pruebas compartidas del ciclo 4.

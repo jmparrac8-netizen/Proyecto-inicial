@@ -1,0 +1,11 @@
+#BlueJ class context
+#Sun Oct 04 22:34:31 COT 2026
+comment0.target=NormalSymbol
+comment1.params=color x y
+comment1.target=NormalSymbol(java.lang.String, int, int)
+comment2.target=java.lang.String type()
+comment3.params=x y
+comment3.target=void moveTo(int, int)
+comment4.target=void show()
+comment5.target=void hide()
+numComments=6

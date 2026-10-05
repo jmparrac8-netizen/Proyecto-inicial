@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 
 public class SlotMachineContestCTest
 {
-    // ---- Arevalo - Parra ----
+    // Arevalo-Parra
 
     // deberia resolver cualquier tamano de maquina permitido
     @Test

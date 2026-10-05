@@ -1,14 +1,21 @@
 #BlueJ class context
-#Sun Sep 20 21:41:12 COT 2026
+#Sun Oct 04 22:34:31 COT 2026
 comment0.target=Symbol
 comment1.params=color x y
 comment1.target=Symbol(java.lang.String, int, int)
-comment2.target=java.lang.String[] colors()
-comment3.params=color
-comment3.target=boolean isValidColor(java.lang.String)
-comment4.target=java.lang.String getColor()
-comment5.params=x y
-comment5.target=void moveTo(int, int)
-comment6.target=void show()
-comment7.target=void hide()
-numComments=8
+comment10.target=void hide()
+comment11.target=void spun()
+comment12.target=void selected()
+comment2.params=type color x y
+comment2.target=Symbol create(java.lang.String, java.lang.String, int, int)
+comment3.target=java.lang.String[] colors()
+comment4.params=color
+comment4.target=boolean isValidColor(java.lang.String)
+comment5.params=type
+comment5.target=boolean isValidType(java.lang.String)
+comment6.target=java.lang.String getColor()
+comment7.target=java.lang.String type()
+comment8.params=x y
+comment8.target=void moveTo(int, int)
+comment9.target=void show()
+numComments=13

@@ -14,7 +14,7 @@ public class SlotMachineCC2Test
         machine.makeInvisible();
     }
 
-    // Arevalo - Parra
+    // Arevalo-Parra
 
     // deberia dejar sin cambios una rueda fijada al pedir una configuracion
     @Test

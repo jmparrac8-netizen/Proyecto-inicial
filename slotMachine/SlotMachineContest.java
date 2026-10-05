@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-// Autor: Tomas Arevalo - Jose Parra
+// Arevalo-Parra
 // Resuelve el problema de la maraton usando la maquina como testing tool.
 
 public class SlotMachineContest
@@ -8,20 +8,19 @@ public class SlotMachineContest
     // Devuelve las acciones {rueda, pasos} que dejan la maquina en premio
     public static int[][] solve(int n)
     {
-        SlotMachine machine = new SlotMachine(n);
-        if (!machine.ok()) {
+        if (n < 2 || n > Symbol.colors().length) {
             return new int[0][];
         }
-        return search(machine, n);
+        return search(new SlotMachine(n), n);
     }
 
     // Resuelve una maquina y muestra la solucion paso a paso
     public static void simulate(int n)
     {
-        SlotMachine machine = new SlotMachine(n);
-        if (!machine.ok()) {
+        if (n < 2 || n > Symbol.colors().length) {
             return;
         }
+        SlotMachine machine = new SlotMachine(n);
         int[][] moves = search(machine, n);
         for (int[] move : moves) {
             machine.spin(move[0], -move[1]);

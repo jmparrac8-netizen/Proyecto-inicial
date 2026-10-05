@@ -1,11 +1,15 @@
 import java.util.ArrayList;
 
-// Autor: Tomas Arevalo - Jose Parra
+// Arevalo-Parra
 // Una rueda de la maquina tragamonedas.
 // Puede guardar varios simbolos, pero solo muestra uno a la vez.
-// Se dibuja con un rectangulo y un triangulo que solo aparece cuando la maquina llego a un estado ganador.
-public class Wheel
+// Se dibuja con un rectangulo, una barra de color que indica su tipo
+// y un triangulo que solo aparece cuando la maquina llego a un estado ganador.
+// Tipos: normal, lefty, rebel y righty.
+public abstract class Wheel
 {
+    private static final String[] TYPES = {"normal", "lefty", "rebel", "righty"};
+
     private ArrayList<Symbol> symbols;
     private int currentIndex;
     private int xPosition;
@@ -13,10 +17,12 @@ public class Wheel
     private boolean visible;
     private boolean locked;
     private Rectangle frame;
+    private Rectangle badge;
     private Triangle mark;
 
-    // Crea una rueda vacia en la posicion dada del canvas
-    public Wheel(int x, int y)
+    // Crea una rueda vacia en la posicion dada del canvas.
+    // La barra de color es lo que distingue a cada tipo de rueda.
+    protected Wheel(int x, int y, String badgeColor)
     {
         symbols = new ArrayList<Symbol>();
         currentIndex = -1;
@@ -25,6 +31,10 @@ public class Wheel
         frame = new Rectangle();
         frame.changeSize(40, 40);
         frame.changeColor("black");
+        badge = new Rectangle();
+        badge.changeSize(6, 40);
+        badge.changeColor(badgeColor);
+        badge.moveVertical(42);
         mark = new Triangle();
         mark.changeSize(20, 20);
         mark.changeColor("magenta");
@@ -35,6 +45,56 @@ public class Wheel
         moveTo(x, y);
     }
 
+    // Crea una rueda del tipo dado, o null si el tipo no existe
+    public static Wheel create(String type, int x, int y)
+    {
+        if (type.equalsIgnoreCase("normal")) {
+            return new NormalWheel(x, y);
+        }
+        if (type.equalsIgnoreCase("lefty")) {
+            return new LeftyWheel(x, y);
+        }
+        if (type.equalsIgnoreCase("rebel")) {
+            return new RebelWheel(x, y);
+        }
+        if (type.equalsIgnoreCase("righty")) {
+            return new RightyWheel(x, y);
+        }
+        return null;
+    }
+
+    // Indica si el tipo de rueda existe
+    public static boolean isValidType(String type)
+    {
+        for (String valid : TYPES) {
+            if (valid.equalsIgnoreCase(type)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Devuelve el tipo de la rueda
+    public abstract String type();
+
+    // Indica si la rueda se deja fijar
+    public boolean canLock()
+    {
+        return true;
+    }
+
+    // Indica si la rueda se deja intercambiar
+    public boolean canSwap()
+    {
+        return true;
+    }
+
+    // Indica si la rueda se deja eliminar
+    public boolean canDelete()
+    {
+        return true;
+    }
+
     // Lleva la rueda completa a la posicion (x, y)
     public void moveTo(int x, int y)
     {
@@ -43,6 +103,8 @@ public class Wheel
         }
         frame.moveHorizontal(x - xPosition);
         frame.moveVertical(y - yPosition);
+        badge.moveHorizontal(x - xPosition);
+        badge.moveVertical(y - yPosition);
         mark.moveHorizontal(x - xPosition);
         mark.moveVertical(y - yPosition);
         xPosition = x;
@@ -53,15 +115,16 @@ public class Wheel
         refresh();
     }
 
-    // Adiciona un simbolo.
-    public boolean addSymbol(String color)
+    // Adiciona un simbolo del tipo y color dados.
+    public boolean addSymbol(String type, String color)
     {
-        if (!Symbol.isValidColor(color) || indexOf(color) != -1) {
+        if (!Symbol.isValidType(type) || !Symbol.isValidColor(color) || indexOf(color) != -1) {
             return false;
         }
-        symbols.add(new Symbol(color, xPosition, yPosition));
+        symbols.add(Symbol.create(type, color, xPosition, yPosition));
         if (currentIndex == -1) {
-            placeSymbol(color);
+            currentIndex = symbols.size() - 1;
+            refresh();
         }
         return true;
     }
@@ -96,18 +159,19 @@ public class Wheel
     }
 
     // Gira la rueda al azar. Falla si esta fijada o vacia.
-    public boolean spin()
+    // Recibe las ruedas vecinas por si el tipo de rueda las necesita.
+    public boolean spin(Wheel left, Wheel right)
     {
         if (locked || symbols.isEmpty()) {
             return false;
         }
         place((int) (Math.random() * symbols.size()));
+        turned(left, right);
         return true;
     }
 
     // Rota la rueda un numero de pasos, hacia adelante o hacia atras.
-    
-    public boolean spin(int steps)
+    public boolean spin(int steps, Wheel left, Wheel right)
     {
         if (locked || symbols.isEmpty()) {
             return false;
@@ -121,13 +185,42 @@ public class Wheel
                 Canvas.getCanvas().wait(200);
             }
         }
+        turned(left, right);
         return true;
+    }
+
+    // Se llama al terminar un giro. Cada tipo de rueda puede completarlo.
+    protected void turned(Wheel left, Wheel right)
+    {
+        for (Symbol symbol : symbols) {
+            symbol.spun();
+        }
+        refresh();
+    }
+
+    // Copia el simbolo que muestra otra rueda, si esta tiene ese color
+    protected void copy(Wheel other)
+    {
+        if (other != null) {
+            placeSymbol(other.getVisibleSymbol());
+        }
     }
 
     // Indica si la rueda tiene un simbolo de ese color
     public boolean hasSymbol(String color)
     {
         return indexOf(color) != -1;
+    }
+
+    // Devuelve el simbolo de ese color, o null si no existe.
+    // Sin modificador para poder revisarlo desde las pruebas.
+    Symbol symbolOf(String color)
+    {
+        int index = indexOf(color);
+        if (index == -1) {
+            return null;
+        }
+        return symbols.get(index);
     }
 
     // Fija la rueda
@@ -192,6 +285,7 @@ public class Wheel
         for (Symbol symbol : symbols) {
             symbol.hide();
         }
+        badge.makeInvisible();
         frame.makeInvisible();
     }
 
@@ -202,16 +296,18 @@ public class Wheel
             return;
         }
         frame.makeVisible();
+        badge.makeVisible();
         if (currentIndex != -1) {
             symbols.get(currentIndex).show();
         }
     }
 
-    // Deja visible el simbolo que esta en esa posicion de la rueda
+    // Deja ubicado el simbolo que esta en esa posicion de la rueda
     private void place(int index)
     {
         hideCurrent();
         currentIndex = index;
+        symbols.get(index).selected();
         refresh();
     }
 

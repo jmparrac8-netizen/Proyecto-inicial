@@ -1,0 +1,8 @@
+#BlueJ class context
+#Sun Oct 04 22:34:31 COT 2026
+comment0.target=SlotMachineCC4Test
+comment1.target=void setUp()
+comment2.target=void accordingArPaShouldKeepRebelWheelUntouched()
+comment3.target=void accordingArPaShouldKeepLeftyEqualToItsLeftWheel()
+comment4.target=void accordingArPaShouldShowShyAgainAfterTwoSelections()
+numComments=5
